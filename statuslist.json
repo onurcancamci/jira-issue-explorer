@@ -1,0 +1,758 @@
+[
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/1",
+		"description": "The issue is open and ready for the assignee to start work on it.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+		"name": "Open",
+		"id": "1",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/3",
+		"description": "This issue is being actively worked on at the moment by the assignee.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/inprogress.png",
+		"name": "In Progress",
+		"id": "3",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/4",
+		"description": "This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/reopened.png",
+		"name": "Reopened",
+		"id": "4",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/5",
+		"description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+		"name": "Resolved",
+		"id": "5",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/6",
+		"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+		"name": "Closed",
+		"id": "6",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10000",
+		"description": "The issue is open but work on it is temporarily suspended until further feedback is received determining its resolution.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/needinfo.png",
+		"name": "Blocked",
+		"id": "10000",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10001",
+		"description": "The issue was on hold, and feedback was received indicating that further action are required towards its resolution.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Continued",
+		"id": "10001",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+		"description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+		"name": "Patch Available",
+		"id": "10002",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10003",
+		"description": "A patch attached to this issue has been reviewed by another contributor.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/visible.png",
+		"name": "Patch Reviewed",
+		"id": "10003",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10006",
+		"description": "Issue is to be reviewed before resolving/closing",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Reviewable",
+		"id": "10006",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10007",
+		"description": "Documentation needs to be updated/created before resolving/closing the issue",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/needinfo.png",
+		"name": "Documentation Required",
+		"id": "10007",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10008",
+		"description": "Further (unit and/or integration) test cases are required before resolving/closing the issue",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/needinfo.png",
+		"name": "Testcases Required",
+		"id": "10008",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10009",
+		"description": "Documentation and Test Cases must be created/updated before resolving/closing the issue",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/needinfo.png",
+		"name": "Documentation/Testcases Required",
+		"id": "10009",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10010",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/needinfo.png",
+		"name": "Waiting for user",
+		"id": "10010",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10011",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Waiting for Infra",
+		"id": "10011",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10012",
+		"description": "Patch is being tested, to be approved or rejected.",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+		"name": "Testing",
+		"id": "10012",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10013",
+		"description": "Test requires a review to see if it is worth porting",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/visible.png",
+		"name": "Unknown",
+		"id": "10013",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10014",
+		"description": "Test has been determined to be useful and worth the time porting",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/up.png",
+		"name": "Requires Porting",
+		"id": "10014",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10015",
+		"description": "Test not generally applicable or not worth the time to port",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/trash.png",
+		"name": "Not Applicable",
+		"id": "10015",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10016",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+		"name": "Ported",
+		"id": "10016",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10017",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+		"name": "Done",
+		"id": "10017",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10018",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/information.png",
+		"name": "In Review",
+		"id": "10018",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10019",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+		"name": "To Do",
+		"id": "10019",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10020",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Accepted",
+		"id": "10020",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10221",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Ready to Commit",
+		"id": "10221",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10222",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Awaiting Feedback",
+		"id": "10222",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10323",
+		"description": "New Issue",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "New",
+		"id": "10323",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10324",
+		"description": "Fixed",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Fixed",
+		"id": "10324",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10421",
+		"description": "Invalid",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Invalid",
+		"id": "10421",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10422",
+		"description": "Fixed In a Branch",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "FixedInBranch",
+		"id": "10422",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10423",
+		"description": "Duplicate",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Duplicate",
+		"id": "10423",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10424",
+		"description": "Verified",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Verified",
+		"id": "10424",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10425",
+		"description": "WontFix",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "WontFix",
+		"id": "10425",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10426",
+		"description": "Under Review",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "UnderReview",
+		"id": "10426",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10427",
+		"description": "Started",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Started",
+		"id": "10427",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10521",
+		"description": "For Review",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "For Review",
+		"id": "10521",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10621",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Idea",
+		"id": "10621",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10622",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Abandoned",
+		"id": "10622",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10623",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Under Discussion",
+		"id": "10623",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10624",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Completed",
+		"id": "10624",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10625",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "In Implementation",
+		"id": "10625",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10721",
+		"description": "This status is managed internally by JIRA Software",
+		"iconUrl": "https://issues.apache.org/jira/",
+		"name": "on hold",
+		"id": "10721",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10722",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Triage Needed",
+		"id": "10722",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10723",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Review In Progress",
+		"id": "10723",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10724",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Changes Suggested",
+		"id": "10724",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10725",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Requires Testing",
+		"id": "10725",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10921",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Draft",
+		"id": "10921",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10922",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Voting",
+		"id": "10922",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+			"id": 4,
+			"key": "indeterminate",
+			"colorName": "yellow",
+			"name": "In Progress"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10923",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Passed",
+		"id": "10923",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10924",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Failed",
+		"id": "10924",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10925",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Pending",
+		"id": "10925",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+			"id": 2,
+			"key": "new",
+			"colorName": "blue-gray",
+			"name": "To Do"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10926",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Yes",
+		"id": "10926",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10927",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "No",
+		"id": "10927",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	},
+	{
+		"self": "https://issues.apache.org/jira/rest/api/2/status/10928",
+		"description": "",
+		"iconUrl": "https://issues.apache.org/jira/images/icons/statuses/generic.png",
+		"name": "Abstain",
+		"id": "10928",
+		"statusCategory": {
+			"self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+			"id": 3,
+			"key": "done",
+			"colorName": "green",
+			"name": "Done"
+		}
+	}
+]

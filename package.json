@@ -1,0 +1,22 @@
+{
+    "name": "jira-issue-explorer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./dist/main.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/onurcancamci/jira-issue-explorer.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/onurcancamci/jira-issue-explorer/issues"
+    },
+    "homepage": "https://github.com/onurcancamci/jira-issue-explorer#readme",
+    "dependencies": {
+        "@types/node": "^14.14.19"
+    }
+}
