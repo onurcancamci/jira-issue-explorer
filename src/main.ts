@@ -6,7 +6,7 @@ import {
 	writeFileSync
 } from "fs";
 import { join } from "path";
-import { QB } from "./QB";
+import { QB, FileIssueReader } from "./QB";
 
 export const issue_folder = process.env.ISSUES || "../jira/issues";
 export const workbench_folder = "./workbench";
@@ -16,8 +16,34 @@ async function Main() {
 		mkdirSync(workbench_folder);
 	}
 
-	const qb = new QB();
-	await qb.test();
+	const start = Date.now();
+
+	const reader = new FileIssueReader(issue_folder, (s) => {
+		return true;
+	});
+	const qb = new QB(reader);
+	const result = await qb
+		.map(async (i) => {
+			return {
+				key: i.key,
+				status: i.fields.status.name,
+				type: i.fields.issuetype.name,
+				project: i.fields.project.key
+			};
+		})
+		.reduce(async (i, acc) => {
+			if (!acc[i.project]) {
+				acc[i.project] = 0;
+			}
+			acc[i.project]++;
+
+			return acc;
+		}, {} as Record<string, number>);
+	console.log(result);
+
+	const end = Date.now();
+
+	console.log(`Run time: ${((end - start) / 1000).toFixed(1)}s`);
 }
 
 Main().catch(console.log);
