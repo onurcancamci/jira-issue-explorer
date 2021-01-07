@@ -11,17 +11,7 @@ import { QB, FileIssueReader } from "./QB";
 export const issue_folder = process.env.ISSUES || "../jira/issues";
 export const workbench_folder = "./workbench";
 
-async function Main() {
-	if (!existsSync(workbench_folder)) {
-		mkdirSync(workbench_folder);
-	}
-
-	const start = Date.now();
-
-	const reader = new FileIssueReader(issue_folder, (s) => {
-		return true;
-	});
-	const qb = new QB(reader);
+async function categorize1(qb: QB) {
 	const result = await qb
 		.map(async (i) => {
 			return {
@@ -39,7 +29,47 @@ async function Main() {
 
 			return acc;
 		}, {} as Record<string, number>);
-	console.log(result);
+	return result;
+}
+
+async function find11(qb: QB) {
+	return qb.find(async (i) => !!i.fields.customfield_12313825);
+}
+
+async function Main() {
+	if (!existsSync(workbench_folder)) {
+		mkdirSync(workbench_folder);
+	}
+
+	const start = Date.now();
+
+	const reader = new FileIssueReader(issue_folder, (s) => {
+		return true;
+	});
+	const qb = new QB(reader);
+
+	//const result = await categorize1(qb);
+	//const result = await find11(qb);
+
+	//console.log(result?.fields.customfield_12311120);
+
+	const s = qb
+		.filter(async (i) => !!i.fields.customfield_12314121)
+		.map(async (i) => i.fields.customfield_12314121);
+	//.reduce(async (c, s) => {
+	//	s.add(c.value);
+	//	return s;
+	//}, new Set());
+
+	//console.log(s);
+	const arr = [];
+	for await (const est of qb) {
+		arr.push(est);
+	}
+	writeFileSync("./est.json", JSON.stringify(arr));
+	for (let k = 0; k < 100; k++) {
+		//console.log(await qb.next());
+	}
 
 	const end = Date.now();
 
@@ -56,20 +86,20 @@ export interface IIssue {
 	fields: {
 		fixVersions: []; //?
 		resolution: null; //?
-		customfield_12312322: null;
-		customfield_12312323: null;
-		customfield_12312320: null;
-		customfield_12310420: string | null; //"9223372036854775807";
-		customfield_12312321: null;
-		customfield_12312328: null;
-		customfield_12312329: null;
-		customfield_12312326: null;
-		customfield_12310300: null;
-		customfield_12312327: null;
-		customfield_12312324: null;
-		customfield_12312720: null;
-		customfield_12312325: null;
-		lastViewed: any; //?
+		//customfield_12312322: null; //git notification mailing list
+		//customfield_12312323: null; // github integration
+		//customfield_12312320: null; // git repo name
+		//customfield_12310420: string | null;// global rank //"9223372036854775807";
+		//customfield_12312321: null; // git repo type
+		//customfield_12312328: null; // blog admin
+		//customfield_12312329: null; // blog admin
+		//customfield_12312326: null; // blog username
+		//customfield_12310300: null; // release version history
+		//customfield_12312327: null; // blog email
+		//customfield_12312324: null; // git repo import path
+		customfield_12312720: null | string; // docs text
+		//customfield_12312325: null | string; // new tlp name
+		lastViewed: null | string; // date time string
 		priority: {
 			self: string; //"https://issues.apache.org/jira/rest/api/2/priority/3";
 			iconUrl: string; //"https://issues.apache.org/jira/images/icons/priorities/major.svg";
@@ -91,31 +121,39 @@ export interface IIssue {
 			id: string; //"3";
 		};
 		labels: string[];
-		customfield_12312333: null;
-		customfield_12312334: null;
-		customfield_12313422: "false" | "true"; //?
-		customfield_12310310: string; // "0.0"
-		customfield_12312331: null;
-		customfield_12312332: null;
-		aggregatetimeoriginalestimate: null;
-		timeestimate: null;
-		customfield_12312330: null;
-		versions: [];
-		customfield_12311120: null;
-		customfield_12313826: null;
-		customfield_12312339: null;
-		issuelinks: [];
-		customfield_12313825: null;
-		assignee: null;
-		customfield_12312337: null;
-		customfield_12313823: null;
-		customfield_12312338: null;
-		customfield_12313822: null;
-		customfield_12311920: null;
-		customfield_12312335: null;
-		customfield_12313821: null;
-		customfield_12312336: null;
-		customfield_12313820: null;
+		//customfield_12312333: null; // new blog write access
+		//customfield_12312334: null; // existing blog name
+		customfield_12313422: "false" | "true"; // enable automatic patch review
+		customfield_12310310: string; // "0.0" attachment count
+		//customfield_12312331: null | string; // new blog PMC
+		//customfield_12312332: null | string; // new blog admin
+		aggregatetimeoriginalestimate: null | number; // Σ Original Estimate
+		timeestimate: null | number; // Remaining estimate
+		//customfield_12312330: null; // blog write access
+		versions: any[];
+		customfield_12311120: null | string; // epic link // issue key
+		customfield_12313826: null; // change category
+		//customfield_12312339: null | string; // bugzilla list of usernames
+		issuelinks: []; // TODO: type?
+		customfield_12313825: {
+			self: string; //"https://issues.apache.org/jira/rest/api/2/customFieldOption/12982";
+			value: string; //"Correctness";
+			id: string; //"12982";
+		}; // bug category
+		assignee: null | IUser;
+		//customfield_12312337: null | string; // bugzilla pmc name
+		customfield_12313823: null | string; // test and documentation plan
+		//customfield_12312338: null | string; // bugzilla email notification address
+		//customfield_12313822: any; // Discovered by
+		//customfield_12311920: null | any; // issueFunction
+		//customfield_12312335: null; // blogs existing access level
+		customfield_12313821: {
+			self: string; //'https://issues.apache.org/jira/rest/api/2/customFieldOption/12965',
+			value: "Low Hanging Fruit" | "Normal" | "Challenging"; //'Normal',
+			id: string; //'12965'
+		}; // complexity
+		//customfield_12312336: null | string; // bugzilla project name
+		customfield_12313820: null | any; // severity
 		status: {
 			self: string; //"https://issues.apache.org/jira/rest/api/2/status/1";
 			description: string; //"The issue is open and ready for the assignee to start work on it.";
@@ -185,22 +223,22 @@ export interface IIssue {
 			};
 		};
 		components: [];
-		customfield_12312026: null;
-		customfield_12312023: null;
-		customfield_12312024: null;
+		//customfield_12312026: null;
+		//customfield_12312023: null;
+		//customfield_12312024: null;
 		aggregatetimeestimate: null;
-		customfield_12312022: null;
-		customfield_12310921: null;
-		customfield_12310920: string; //"9223372036854775807";
-		customfield_12312823: null;
+		//customfield_12312022: null;
+		customfield_12310921: null | string[]; // sprint
+		//customfield_12310920: string; // rank obsolete //"9223372036854775807";
+		//customfield_12312823: null;
 		creator: IUser;
-		subtasks: []; //?
+		subtasks: []; // TODO: type?
 		reporter: IUser;
 		aggregateprogress: { progress: number; total: number };
-		customfield_12313520: null;
-		customfield_12310250: null;
+		//customfield_12313520: null; // review patch
+		customfield_12310250: null; // flags
 		progress: { progress: number; total: number };
-		customfield_12313924: null;
+		//customfield_12313924: null;
 		votes: {
 			self: string; //"https://issues.apache.org/jira/rest/api/2/issue/AAR-1/votes";
 			votes: number;
@@ -210,9 +248,9 @@ export interface IIssue {
 			startAt: number; //0
 			maxResults: number; //20
 			total: number; //0;
-			worklogs: []; //?
+			worklogs: []; // TODO: type?
 		};
-		customfield_12313920: null;
+		customfield_12313920: null | IUser[]; // authors
 		issuetype: {
 			self: string; //"https://issues.apache.org/jira/rest/api/2/issuetype/1";
 			id: string; //"1";
@@ -269,25 +307,25 @@ export interface IIssue {
 			subtask: boolean;
 			avatarId: number; //21133;
 		};
-		timespent: null; //?
-		customfield_12314020: any; // large json data TODO: add
-		customfield_12314141: null;
-		customfield_12314140: null;
+		timespent: null | number;
+		customfield_12314020: any; // development // large json data TODO: add
+		customfield_12314141: null | IUser[]; // reviewers
+		//customfield_12314140: null; // ignite flags
 		project: IProject;
 		aggregatetimespent: null;
-		customfield_12310220: null;
-		customfield_12312520: null;
-		customfield_12312521: string; //"2016-04-26 19:11:19.439";
-		customfield_12310222: null;
-		customfield_12314146: null;
-		customfield_12314145: null;
-		customfield_12314144: null;
-		customfield_12314143: null;
+		customfield_12310220: null | string; // date of first response
+		//customfield_12312520: null;
+		//customfield_12312521: string; //"2016-04-26 19:11:19.439"; // last public comment
+		customfield_12310222: null | string; // time in status
+		customfield_12314146: null; // skill level // TODO: type
+		//customfield_12314145: null;
+		//customfield_12314144: null;
+		//customfield_12314143: null;
 		resolutiondate: null;
 		workratio: number; //-1;
-		customfield_12312923: null;
-		customfield_12312920: null;
-		customfield_12312921: null;
+		//customfield_12312923: null;
+		//customfield_12312920: null;
+		//customfield_12312921: null;
 		watches: {
 			self: string; //"https://issues.apache.org/jira/rest/api/2/issue/AAR-1/watchers";
 			watchCount: number; //1;
@@ -297,46 +335,56 @@ export interface IIssue {
 		updated: string; //"2016-04-26T19:11:19.439+0000";
 		timeoriginalestimate: null;
 		description: string;
-		customfield_10010: null;
-		timetracking: {}; // ?
-		customfield_12314127: null;
-		customfield_12314126: null;
-		customfield_12314125: null;
-		customfield_12314124: null;
+		//customfield_10010: null;
+		timetracking: {}; // TODO: type
+		customfield_12314127: null; // level of effort
+		//customfield_12314126: null;
+		customfield_12314125: null; // bug behaviour facts?
+		//customfield_12314124: null; // lucene fields
 		attachment: [];
-		customfield_12312340: null;
-		customfield_12314123: null;
-		customfield_12312341: null;
-		customfield_12312220: null;
-		customfield_12314122: null;
-		customfield_12314121: null;
-		customfield_12314120: null;
-		customfield_12314129: null;
-		customfield_12314128: null;
+		//customfield_12312340: null;
+		//customfield_12314123: null; // workaround
+		//customfield_12312341: null;
+		customfield_12312220: null | any; // testcase included
+		//customfield_12314122: null;
+		customfield_12314121: null; // estimated complexity
+		//customfield_12314120: null;
+		//customfield_12314129: null; // review date
+		//customfield_12314128: null;
 		summary: string;
-		customfield_12314130: null;
-		customfield_12310291: null;
-		customfield_12310290: null;
-		customfield_12314138: null;
-		customfield_12314137: null;
-		environment: null;
-		customfield_12314136: null;
-		customfield_12314135: null;
-		customfield_12311020: null;
-		customfield_12314134: null;
-		duedate: null;
-		customfield_12314132: null;
-		customfield_12314131: null;
+		//customfield_12314130: null;
+		customfield_12310291: null | string[]; // epic theme
+		//customfield_12310290: null; // flagged
+		//customfield_12314138: null;
+		customfield_12314137: null | string; // tags
+		environment: null | string;
+		//customfield_12314136: null;
+		customfield_12314135: null | IUser; // reviewer
+		//customfield_12311020: null;
+		//customfield_12314134: null;
+		duedate: null | string; // date
+		customfield_12314132: null | any; // issue and fix info TODO: type
+		//customfield_12314131: null;
 		comment: {
-			comments: [];
+			comments: IComment[];
 			maxResults: 0;
 			total: 0;
 			startAt: 0;
 		};
-		customfield_12311820: string; //"0|i2wrqf:";
-		customfield_12314139: null;
+		//customfield_12311820: string; //"0|i2wrqf:";
+		customfield_12314139: null | IUser; // tester
 	};
 	properties: {};
+}
+
+export interface IComment {
+	self: string; //'https://issues.apache.org/jira/rest/api/2/issue/12963426/comment/15261824',
+	id: string; //'15261824',
+	author: IUser;
+	body: string; //'faqegggf',
+	updateAuthor: IUser;
+	created: string; //'2016-04-28T09:16:51.183+0000',
+	updated: string; //'2016-04-28T09:16:51.183+0000'
 }
 
 export interface IUser {

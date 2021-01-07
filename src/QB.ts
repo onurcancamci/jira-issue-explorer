@@ -41,6 +41,15 @@ export class QB<T = IIssue[]> {
 		return this;
 	}
 
+	async find(fn: FilterFunction<El<T>>) {
+		for await (const val of this) {
+			if (await fn(val)) {
+				return val as El<T>;
+			}
+		}
+		return null;
+	}
+
 	//will consume
 	async reduce<V>(fn: ReduceFunction<El<T>, V>, acc: V): Promise<V> {
 		for await (const val of this) {
