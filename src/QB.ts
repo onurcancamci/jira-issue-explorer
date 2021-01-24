@@ -1,7 +1,8 @@
-import { issue_folder, IIssue } from "./main";
-import { readdirSync } from "fs";
+import { issue_folder, workbench_folder } from "./main";
+import { existsSync, readdirSync, readFileSync } from "fs";
 import { join } from "path";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
+import { IBIssue, IIssue, SanitizeIssue } from "./IssueUtil";
 
 export type MapFunction<T = any, V = any> = (i: T) => Promise<V>;
 export type FilterFunction<T = any> = (i: T) => Promise<boolean>;
@@ -58,6 +59,34 @@ export class QB<T = IIssue[]> {
 		return acc;
 	}
 
+	async reduceWithCache<V>(
+		fn: ReduceFunction<El<T>, V>,
+		acc: V,
+		cache: string,
+		force = false
+	) {
+		const path = join(workbench_folder, `${cache}.json`);
+		if (existsSync(path) && !force) {
+			return JSON.parse(await readFile(path, "utf-8"));
+		}
+		const result = await this.reduce(fn, acc);
+		await writeFile(path, JSON.stringify(result));
+		return result;
+	}
+
+	async take(num: number) {
+		const arr = [];
+		for (let k = 0; k < num; k++) {
+			const ret = await this.next();
+			if (ret.done) {
+				return arr;
+			}
+
+			arr.push(ret.value);
+		}
+		return arr;
+	}
+
 	async next(): Promise<{ done: boolean; value: any }> {
 		let res;
 		do {
@@ -104,10 +133,12 @@ export class QB<T = IIssue[]> {
 	}
 }
 
-export interface IIssueReader {
-	next(): Promise<{ done: boolean; value: undefined | IIssue }>;
-	[Symbol.asyncIterator](): IIssueReader;
+export interface IReader<T = any> {
+	next(): Promise<{ done: boolean; value: T }>;
+	[Symbol.asyncIterator](): IReader<T>;
 }
+
+export type IIssueReader = IReader<IIssue>;
 
 export class FileIssueReader {
 	folder: string;
@@ -121,6 +152,10 @@ export class FileIssueReader {
 		if (filter) {
 			this.files = this.files.filter(filter);
 		}
+	}
+
+	async progress() {
+		return [this.index, this.files.length];
 	}
 
 	async next() {
@@ -138,3 +173,25 @@ export class FileIssueReader {
 		return this;
 	}
 }
+
+export const HiveQBBuilder = () => {
+	const reader = new FileIssueReader(issue_folder, (s) => {
+		return s.startsWith("HIVE");
+	});
+
+	const qb = new QB(reader);
+
+	const int = setInterval(async () => {
+		const progress = await reader.progress();
+		const percent = (progress[0] / progress[1]) * 100;
+		console.log(`Progress: ${percent.toFixed(2)}%`);
+	}, 5000);
+
+	return qb;
+};
+
+export const SHiveQBBuilder = () => {
+	const qb = HiveQBBuilder();
+	qb.map<IBIssue>(async (i) => SanitizeIssue(i));
+	return (qb as any) as QB<IBIssue[]>;
+};
