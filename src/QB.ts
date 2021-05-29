@@ -1,7 +1,7 @@
-import { issue_folder, workbench_folder } from "./main";
+import { issue_folder, issue_folder2, workbench_folder } from "./main";
 import { existsSync, readdirSync, readFileSync } from "fs";
 import { join } from "path";
-import { readFile, writeFile } from "fs/promises";
+import { copyFile, readFile, writeFile } from "fs/promises";
 import { IBIssue, IIssue, SanitizeIssue } from "./IssueUtil";
 
 export type MapFunction<T = any, V = any> = (i: T) => Promise<V>;
@@ -31,7 +31,7 @@ export class QB<T = IIssue[]> {
 			type: "Map",
 			fn: fn
 		});
-		return (this as any) as QB<OUT[]>;
+		return this as any as QB<OUT[]>;
 	}
 
 	filter(fn: FilterFunction<El<T>>) {
@@ -75,7 +75,7 @@ export class QB<T = IIssue[]> {
 	}
 
 	async take(num: number) {
-		const arr = [];
+		const arr: El<T>[] = [];
 		for (let k = 0; k < num; k++) {
 			const ret = await this.next();
 			if (ret.done) {
@@ -85,6 +85,18 @@ export class QB<T = IIssue[]> {
 			arr.push(ret.value);
 		}
 		return arr;
+	}
+
+	async collect() {
+		const arr = [];
+		while (true) {
+			const ret = await this.next();
+			if (ret.done) {
+				return arr;
+			}
+
+			arr.push(ret.value);
+		}
 	}
 
 	async next(): Promise<{ done: boolean; value: any }> {
@@ -163,6 +175,7 @@ export class FileIssueReader {
 			const fp = join(this.folder, this.files[this.index]);
 			const str = await readFile(fp, "utf8");
 			const obj = JSON.parse(str);
+			//await copyFile(fp, join(issue_folder2, this.files[this.index]));
 			this.index++;
 			return { done: false, value: obj };
 		}
@@ -184,7 +197,7 @@ export const HiveQBBuilder = () => {
 	const int = setInterval(async () => {
 		const progress = await reader.progress();
 		const percent = (progress[0] / progress[1]) * 100;
-		console.log(`Progress: ${percent.toFixed(2)}%`);
+		//console.log(`Progress: ${percent.toFixed(2)}%`);
 	}, 5000);
 
 	return qb;
@@ -193,5 +206,5 @@ export const HiveQBBuilder = () => {
 export const SHiveQBBuilder = () => {
 	const qb = HiveQBBuilder();
 	qb.map<IBIssue>(async (i) => SanitizeIssue(i));
-	return (qb as any) as QB<IBIssue[]>;
+	return qb as any as QB<IBIssue[]>;
 };

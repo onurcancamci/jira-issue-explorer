@@ -12,7 +12,8 @@
 		"strict": true,
 		"alwaysStrict": true,
 		"strictNullChecks": true,
-		"lib": ["es5", "es2015.promise"]
+		"lib": ["es5", "es2015.promise"],
+		"downlevelIteration": true
 	},
 	"include": ["./src/**/*"],
 	"exclude": ["node_modules", "./dist"]

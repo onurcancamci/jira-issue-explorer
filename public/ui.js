@@ -1,15 +1,61 @@
 async function main() {
-	await commentChartDataGen();
-	await commentChartDataGenAll();
-	await resolvedIssuesResolveTypes();
-	await fixedIssuesIssueTypes();
-	await fixedIssuesStatus();
-	await fixedIssuesTimeEstimate();
-	await fixedIssuesWorklogExists();
-	await fixedIssuesDescCharacterLength();
-	await fixedIssuesPriority();
-	await fixedIssuesReviewerExists();
-	await fixedIssuesDaysToResolve();
+	await manHours();
+	await manHoursMain();
+	await manHoursRate();
+	//await chosens();
+	//await daysToResolvePerComments();
+	//await daysToResolvePerCommentsFiltered();
+	//await daysToResolvePerContributor();
+	//await daysToResolvePerContributorFiltered();
+	// await commentChartDataGen();
+	// await commentChartDataGenAll();
+	// await resolvedIssuesResolveTypes();
+	// await fixedIssuesIssueTypes();
+	// await fixedIssuesStatus();
+	// await fixedIssuesTimeEstimate();
+	// await fixedIssuesWorklogExists();
+	// await fixedIssuesDescCharacterLength();
+	// await fixedIssuesPriority();
+	// await fixedIssuesReviewerExists();
+	// await fixedIssuesDaysToResolve();
+}
+
+async function manHours() {
+	const cats = await req("/manHours");
+	for (const key in cats) {
+		if (cats[key] <= 20) {
+			//delete cats[key];
+		}
+	}
+	const labels = Object.keys(cats);
+	const data = labels.map((l) => cats[l]);
+	await barChartGen(labels, data, "Man hours (Days)");
+}
+async function manHoursRate() {
+	const cats = await req("/manHoursRate");
+	const dp = [];
+	for (const key in cats) {
+		if (cats[key] <= 20) {
+			//delete cats[key];
+		}
+		dp.push([key, cats[key]]);
+	}
+	dp.sort((a, b) => parseFloat(a[0]) - parseFloat(b[0]));
+	const labels = dp.map((d) => d[0]);
+	const data = dp.map((d) => d[1]);
+	await barChartGen(labels, data, "Man hours / Creator Only Man Hours");
+}
+
+async function manHoursMain() {
+	const cats = await req("/manHoursMain");
+	for (const key in cats) {
+		if (cats[key] <= 20) {
+			//delete cats[key];
+		}
+	}
+	const labels = Object.keys(cats);
+	const data = labels.map((l) => cats[l]);
+	await barChartGen(labels, data, "Man hours of only creator (Days)");
 }
 
 async function fixedIssuesDescCharacterLength() {
@@ -44,6 +90,83 @@ async function fixedIssuesDescCharacterLength() {
 		datan,
 		"Fixed Issues Categorized By Character Length of Description and Comment Count > 5"
 	);
+}
+
+async function daysToResolvePerComments() {
+	const stats = await req("/daysToResolvePerComments");
+	const labels = [];
+	const data = [];
+	for (const key in stats) {
+		const stat = stats[key];
+		labels.push(`${key} - SD: ${msToDaysStr(stat.deviation)}`);
+		data.push(parseFloat(msToDaysStr(stat.mean)));
+	}
+	await barChartGen(
+		labels,
+		data,
+		"Chosen Issues Mean Days To Resolve Per Comment Count with Standard Deviation"
+	);
+}
+
+async function daysToResolvePerCommentsFiltered() {
+	const stats = await req("/daysToResolvePerComments");
+	const labels = [];
+	const data = [];
+	for (const key in stats) {
+		const stat = stats[key];
+		if (stat.count < 10) continue;
+		labels.push(`${key} - SD: ${msToDaysStr(stat.deviation)}`);
+		data.push(parseFloat(msToDaysStr(stat.mean)));
+	}
+	await barChartGen(
+		labels,
+		data,
+		"Chosen Issues Mean Days To Resolve Per Comment Count with Standard Deviation. Issue Count < 10 Are Filtrered Out"
+	);
+}
+
+async function daysToResolvePerContributor() {
+	const stats = await req("/daysToResolvePerContributor");
+	const labels = [];
+	const data = [];
+	for (const key in stats) {
+		const stat = stats[key];
+		labels.push(`${key} - SD: ${msToDaysStr(stat.deviation)}`);
+		data.push(parseFloat(msToDaysStr(stat.mean)));
+	}
+	await barChartGen(
+		labels,
+		data,
+		"Chosen Issues Mean Days To Resolve Per Contributor Count with Standard Deviation"
+	);
+}
+
+async function daysToResolvePerContributorFiltered() {
+	const stats = await req("/daysToResolvePerContributor");
+	const labels = [];
+	const data = [];
+	for (const key in stats) {
+		const stat = stats[key];
+		if (stat.count < 10) continue;
+		labels.push(`${key} - SD: ${msToDaysStr(stat.deviation)}`);
+		data.push(parseFloat(msToDaysStr(stat.mean)));
+	}
+	await barChartGen(
+		labels,
+		data,
+		"Chosen Issues Mean Days To Resolve Per Contributor Count with Standard Deviation. Issue Count < 10 Are Filtrered Out"
+	);
+}
+
+function msToDaysStr(ms) {
+	return (ms / 86400000).toFixed(1);
+}
+
+async function chosens() {
+	const cats = await req("/chosens");
+	const labels = Object.keys(cats);
+	const data = labels.map((l) => cats[l]);
+	await barChartGen(labels, data, "Issues Categories By Chosen or Not");
 }
 
 async function fixedIssuesReviewerExists() {
